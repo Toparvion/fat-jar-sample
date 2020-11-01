@@ -1,0 +1,40 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group = 'pro.toparvion.sample'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+bootJar {
+    archiveFileName = 'fat.jar'
+    manifest {
+        attributes(
+                "Implementation-Title": "Spring Boot 'fat' JAR Sample",
+                "Implementation-Version": archiveVersion.get(),
+                "Implementation-Vendor": "Toparvion"
+        )
+    }
+//    requiresUnpack '**/jruby-complete-*.jar'
+    layered()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+//    implementation group: 'org.jruby', name: 'jruby-complete', version: '9.2.13.0'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

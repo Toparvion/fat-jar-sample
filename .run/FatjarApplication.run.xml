@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FatjarApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="fatjar.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="pro.toparvion.sample.fatjar.FatjarApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

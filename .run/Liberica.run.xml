@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Liberica" type="docker-deploy" factoryName="docker-image" server-name="Docker">
+    <deployment type="docker-image">
+      <settings>
+        <option name="imageTag" value="bellsoft/liberica-openjdk-alpine:11" />
+        <option name="command" value="" />
+        <option name="containerName" value="liberica" />
+        <option name="entrypoint" value="" />
+        <option name="commandLineOptions" value="-it" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
