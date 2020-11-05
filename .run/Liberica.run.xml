@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Liberica" type="docker-deploy" factoryName="docker-image" server-name="Docker">
+  <configuration default="false" name="Liberica" type="docker-deploy" factoryName="docker-image" server-name="Docker Desktop">
     <deployment type="docker-image">
       <settings>
         <option name="imageTag" value="bellsoft/liberica-openjdk-alpine:11" />

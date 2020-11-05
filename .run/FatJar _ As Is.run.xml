@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="FatJar / As Is" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+  <configuration default="false" name="FatJar / As Is" type="docker-deploy" factoryName="dockerfile" server-name="Docker Desktop">
     <deployment type="dockerfile">
       <settings>
         <option name="imageTag" value="fatjar/asis" />
