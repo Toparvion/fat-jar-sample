@@ -22,8 +22,9 @@ public class FatjarApplication implements ApplicationRunner {
     String[] classPath = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
     String separatedLines = join("\n", classPath);
     log.info("'java.class.path' JVM property value ({} entries):\n{}", classPath.length, separatedLines);
-    log.info("'java.protocol.handler.pkgs' JVM property value: {}", System.getProperty("java.protocol.handler.pkgs", "(n/a)"));
-/*
+    String handlerPackages = System.getProperty("java.protocol.handler.pkgs", "(n/a)");
+    log.info("'java.protocol.handler.pkgs' JVM property value: {}", handlerPackages);
+    /*
     //Example using JSR 233 Scripting for Java 6
     ScriptEngineManager mgr = new ScriptEngineManager();
     ScriptEngine rbEngine = mgr.getEngineByExtension("rb");
@@ -32,8 +33,7 @@ public class FatjarApplication implements ApplicationRunner {
     } catch (ScriptException ex) {
       log.error("Ну дела", ex);
     }
-*/
-
+    */
   }
 
 }

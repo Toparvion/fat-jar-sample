@@ -17,7 +17,7 @@ bootJar {
                 "Implementation-Vendor": "Toparvion"
         )
     }
-//    requiresUnpack '**/jruby-complete-*.jar'
+    // requiresUnpack '**/jruby-complete-*.jar'
     layered()
 }
 
@@ -27,14 +27,5 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-
-//    implementation group: 'org.jruby', name: 'jruby-complete', version: '9.2.13.0'
-
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-}
-
-test {
-    useJUnitPlatform()
+    // implementation group: 'org.jruby', name: 'jruby-complete', version: '9.2.13.0'
 }
