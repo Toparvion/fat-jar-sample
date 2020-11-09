@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Fat JAR (cmd)" type="BatchConfigurationType" factoryName="Batch">
+  <configuration default="false" name="Extracted MainClass (cmd)" type="BatchConfigurationType" factoryName="Batch">
     <option name="INTERPRETER_OPTIONS" value="" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/build/libs" />
     <option name="PARENT_ENVS" value="true" />
     <module name="" />
-    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cmd/fat-jar.cmd" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cmd/main-class.cmd" />
     <option name="PARAMETERS" value="" />
     <method v="2" />
   </configuration>
