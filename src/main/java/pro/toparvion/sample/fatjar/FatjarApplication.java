@@ -7,6 +7,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static java.lang.String.join;
 
 @SpringBootApplication
@@ -19,21 +24,24 @@ public class FatjarApplication implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
-    String[] classPath = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
-    String separatedLines = join("\n", classPath);
-    log.info("'java.class.path' JVM property value ({} entries):\n{}", classPath.length, separatedLines);
-    String handlerPackages = System.getProperty("java.protocol.handler.pkgs", "(n/a)");
-    log.info("'java.protocol.handler.pkgs' JVM property value: {}", handlerPackages);
-    /*
-    //Example using JSR 233 Scripting for Java 6
-    ScriptEngineManager mgr = new ScriptEngineManager();
-    ScriptEngine rbEngine = mgr.getEngineByExtension("rb");
-    try {
-      rbEngine.eval("puts 'Hello World from JRuby!'");
-    } catch (ScriptException ex) {
-      log.error("Ну дела", ex);
+    // Print the 'java.class.path' JVM option
+    String[] desiredClassPath = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
+    String separatedLines = join("\n", desiredClassPath);
+    log.info("'java.class.path' ({} entries):\n{}", desiredClassPath.length, separatedLines);
+
+    // Print actual class path of the current thread's class loader if it an URLClassLoader
+    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    if (contextClassLoader instanceof URLClassLoader) {
+      URLClassLoader urlClassLoader = (URLClassLoader) contextClassLoader;
+      String actualClassPath = Arrays.stream(urlClassLoader.getURLs())
+              .map(URL::toString)
+              .collect(Collectors.joining("\n"));
+      log.info("Actual class path: \n{}", actualClassPath);
     }
-    */
+
+    // Print any custom URL handlers registered within the app 
+    String handlerPackages = System.getProperty("java.protocol.handler.pkgs", "(n/a)");
+    log.info("'java.protocol.handler.pkgs': {}", handlerPackages);
   }
 
 }
