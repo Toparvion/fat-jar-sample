@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static java.lang.String.join;
+import static java.util.stream.Collectors.joining;
 
 @SpringBootApplication
 public class FatjarApplication implements ApplicationRunner {
@@ -29,13 +29,13 @@ public class FatjarApplication implements ApplicationRunner {
     String separatedLines = join("\n", desiredClassPath);
     log.info("'java.class.path' ({} entries):\n{}", desiredClassPath.length, separatedLines);
 
-    // Print actual class path of the current thread's class loader if it an URLClassLoader
+    // Print actual class path of the current thread's class loader if it's an URLClassLoader
     ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
     if (contextClassLoader instanceof URLClassLoader) {
       URLClassLoader urlClassLoader = (URLClassLoader) contextClassLoader;
       String actualClassPath = Arrays.stream(urlClassLoader.getURLs())
               .map(URL::toString)
-              .collect(Collectors.joining("\n"));
+              .collect(joining("\n"));
       log.info("Actual class path: \n{}", actualClassPath);
     }
 
