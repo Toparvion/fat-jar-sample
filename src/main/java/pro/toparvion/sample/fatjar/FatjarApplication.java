@@ -37,6 +37,8 @@ public class FatjarApplication implements ApplicationRunner {
               .map(URL::toString)
               .collect(joining("\n"));
       log.info("Actual class path: \n{}", actualClassPath);
+    } else {
+      log.warn("Current thread's class loader is not 'URLClassLoader'.");
     }
 
     // Print any custom URL handlers registered within the app 
