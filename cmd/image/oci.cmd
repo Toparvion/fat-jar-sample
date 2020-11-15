@@ -1,0 +1,1 @@
+gradlew bootBuildImage --imageName=fatjar/oci
