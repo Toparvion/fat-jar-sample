@@ -24,12 +24,12 @@ public class FatjarApplication implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
-    // Print the 'java.class.path' JVM option
+    // (1) Print the 'java.class.path' JVM option
     String[] desiredClassPath = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
     String separatedLines = join("\n", desiredClassPath);
     log.info("'java.class.path' ({} entries):\n{}", desiredClassPath.length, separatedLines);
 
-    // Print actual class path of the current thread's class loader if it's an URLClassLoader
+    // (2) Print actual class path of the current thread's class loader if it's an URLClassLoader
     ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
     if (contextClassLoader instanceof URLClassLoader) {
       URLClassLoader urlClassLoader = (URLClassLoader) contextClassLoader;
@@ -41,7 +41,7 @@ public class FatjarApplication implements ApplicationRunner {
       log.warn("Current thread's class loader is not 'URLClassLoader'.");
     }
 
-    // Print any custom URL handlers registered within the app 
+    // (3) Print any custom URL handlers registered within the app 
     String handlerPackages = System.getProperty("java.protocol.handler.pkgs", "(n/a)");
     log.info("'java.protocol.handler.pkgs': {}", handlerPackages);
   }
