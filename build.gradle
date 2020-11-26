@@ -1,8 +1,16 @@
+// should be at the top of build.gradle
+buildscript {
+  dependencies {
+    classpath('com.google.cloud.tools:jib-layer-filter-extension-gradle:0.1.0')
+  }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.4.0'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'com.google.cloud.tools.jib' version '2.6.0'
     id 'java'
+    id 'idea'
 }
 
 group = 'pro.toparvion.sample'
@@ -18,7 +26,28 @@ bootJar {
                 "Implementation-Vendor": "Toparvion"
         )
     }
-    // layered()        // required for v2.3 only
+    /* layered()    // required for v2.3 only */        
+    layered {
+        application {
+            intoLayer("spring-boot-loader") {
+                include "org/springframework/boot/loader/**"
+            }
+            intoLayer("generated") {
+                include "**/generated/**"
+            }
+            intoLayer("application")
+        }
+        dependencies {
+            intoLayer("application") {
+                includeProjectDependencies()        // v2.4
+            }
+            intoLayer("snapshot-dependencies") {
+                include "*:*:*SNAPSHOT"
+            }
+            intoLayer("dependencies")
+        }
+        layerOrder = ["dependencies", "spring-boot-loader", "snapshot-dependencies", "generated", "application"]
+    }
 }
 
 repositories {
@@ -27,4 +56,42 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+}
+
+jib {
+    from {
+        image = 'bellsoft/liberica-openjdk-alpine:11.0.9'
+    }
+    to {
+        image = 'fatjar/jib'
+        // tags = ['custom', 'latest']
+    }
+    container {
+        jvmFlags = ['-Xmx128m', '-XX:MaxMetaspaceSize=192m']
+        // ports = ['1000', '2000-2003/udp']
+    }
+
+    pluginExtensions {
+        pluginExtension {
+            implementation = 'com.google.cloud.tools.jib.gradle.extension.layerfilter.JibLayerFilterExtension'
+            configuration {
+                filters {
+                    // Delete all class files (unless they match the filters below) -->
+                    filter {
+                        glob = '**/*.class'
+                    }
+                    // However, retain and move generated classes into a new layer
+                    filter {
+                        glob = '**/generated/*.class'
+                        toLayer = 'generated'
+                    }
+                    // And re-add the application classes on top of it as they change most frequently
+                    filter {
+                        glob = '**/fatjar/*.class'
+                        toLayer = 'application'
+                    }
+                }
+            }
+        }
+    }
 }
