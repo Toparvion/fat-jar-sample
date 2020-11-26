@@ -1,6 +1,6 @@
 # Spring Boot “fat” JAR Sample :tumbler_glass:
 
-This is a simple Spring Boot command-line application to demonstrate some features of executable JAR packaging. It supplements [the conference talk](https://toparvion.pro/talk/2020/joker/).
+This is a simple Spring Boot command-line application to demonstrate some features of executable JAR packaging during [the conference talk](https://toparvion.pro/talk/2020/joker/).
 
 The application uses Spring Boot [2.4](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.4.0-M4-Release-Notes) and Gradle 6.6.1. 
 
@@ -89,4 +89,4 @@ Please feel free to submit Pull Requests to add examples of new use cases or edi
 
 ## License
 
-The project uses [GPL-3.0 License](LICENSE) license.
+The project uses [GPL-3.0](LICENSE) license.
